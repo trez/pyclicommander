@@ -32,31 +32,42 @@ hello WORLD
 
 ## Usage
 ### API
-| Commander                        | Description                                                                   |
-| ---------------------------      | ----------------------------------------------------------------------------- |
-| call(cli_path:List[String])      | run command with arguments for cli path. cli_path defaults to sys.argv[1:].   |
-|                                  | if --help is in cli_path help() will be called.                               |
-|                                  | ex. c.call(["speak", "world"])                                                |
-| help(cli_path:List[String])      | print help text for cli path based on function __docstring__.                 |
-|                                  | cli_path defaults to sys.argv[1:].                                            |
-|                                  | ex. c.call(["speak", "world"])                                                |
-| add_cli(path:String, func,       | add extra cli without using decorators.                                       |
-|    short_description:String,     |                                                                               |
-|    long_description:String)      |                                                                               |
+#### call
+Run command with arguments for cli path. cli_path defaults to sys.argv[1:].
+
+Type definition, *call(cli_path:List[String])*
+
+If --help is in cli_path help() will be called.
+
+#### help
+Print help text for cli path based on function __docstring__.
+
+Type definition, *help(cli_path:List[String])*
+
+cli_path defaults to sys.argv[1:].
+
+#### add_cli
+Add extra cli without using decorators.
+
+Type definition, *add_cli(path:String, func, short_description:String, long_description:String)*
 
 ### Definitions
-| Feature                | @commander.cli()           | function header      | Note                                               |
-| ---------------------- | -------------------------- | -------------------- | -------------------------------------------------- |
-| Mandatory parameter(s) | queue accept KEY           | def a(k)             | one mandatory parameter                            |
-|                        | queue accept KEY KEY       | def a(k1, k2)        | two mandatory parameters                           |
-|                        | queue KEY accept           | def a(k)             | mandatory parameter in cli path                    |
-| Optional parameter(s)  | queue accept [KEY]         | def a(k=None)        | one optional parameter                             |
-| Optional flags         | queue list [-q]            | def a(q=False)       | when -q is used it is set to True                  |
-|                        | queue list [--user=NAME]   | def a(user=None)     |                                                    |
-|                        | queue list [-q/--quiet]    | def a(q=False)       | Short and long flags, first flag is used in call.  |
-|                        | queue list [--user-data=D] | def a(user_data=[1]) | Hyphens gets replaced by underscore.               |
-| List of parameter(s)   | queue accept [KEY...]      | def a(*k)            | zero or more KEYs                                  |
-|                        | queue accept KEY [KEY...]  | def a(*k)            | one or more KEYs                                   |
+| @commander.cli()           | function header      | Note                                               |
+| -------------------------- | -------------------- | -------------------------------------------------- |
+| **Mandatory parameter(s)**         | | |
+| queue accept KEY           | def a(k)             | one mandatory parameter                            |
+| queue accept KEY KEY       | def a(k1, k2)        | two mandatory parameters                           |
+| queue KEY accept           | def a(k)             | mandatory parameter in cli path                    |
+| **Optional parameter(s)**          | | |
+| queue accept [KEY]         | def a(k=None)        | one optional parameter                             |
+| **Optional flags**        | | | 
+| queue list [-q]            | def a(q=False)       | when -q is used it is set to True                  |
+| queue list [--user=NAME]   | def a(user=None)     |                                                    |
+| queue list [-q/--quiet]    | def a(q=False)       | Short and long flags, first flag is used in call.  |                        
+| queue list [--user-data=D] | def a(user_data=[1]) | Hyphens gets replaced by underscore.               |
+| **List of parameter(s)**           | | |
+| queue accept [KEY...]      | def a(*k)            | zero or more KEYs                                  |
+| queue accept KEY [KEY...]  | def a(*k)            | one or more KEYs                                   |
                                                
 ## Development
 ### Run tests
