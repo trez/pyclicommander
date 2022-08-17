@@ -241,6 +241,18 @@ class Test_parse_definitions(unittest.TestCase):
             """Apa command."""
             pass
 
+        @commander.cli("apa bepa")
+        def subcommand_apa():
+            """sub-bepa command."""
+            pass
+
+        @commander.cli("apa bepa cepa")
+        def subcommand_apa():
+            """sub-sub-cepa command."""
+            pass
+
+
+
         commander.call([""])
 
         self.assertEqual(mock_print.mock_calls, [
@@ -248,4 +260,8 @@ class Test_parse_definitions(unittest.TestCase):
             call('\tTest command.'),
             call('apa'),
             call('\tApa command.'),
+            call('apa bepa'),
+            call('\tsub-bepa command.'),
+            call('apa bepa cepa'),
+            call('\tsub-sub-cepa command.'),
         ])

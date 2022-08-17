@@ -240,8 +240,7 @@ class Commander():
 
     def help_all_commands(self, path=None):
         cmd_root_name = f"{self.cmd_name} " if self.cmd_name else ''
-        for cmd in self.__get_cmds():
-            cmd_info, _args = self.__get_cmd(cmd.split())
+        for cmd, cmd_info in self.get_cmds():
             print(f"{cmd_root_name}{cmd_info['usage']}")
             if text := cmd_info['short_description']:
                 print(f"\t{text}")
@@ -266,7 +265,7 @@ class Commander():
         def __recursive_get_cmd(cmd, path):
             path = f"{path} {cmd.name()}".strip()
             if cmd.active:
-                yield path
+                yield path, cmd
 
             for s in cmd.subcommands.values():
                 yield from __recursive_get_cmd(s, path)
