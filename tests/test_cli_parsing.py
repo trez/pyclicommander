@@ -226,3 +226,26 @@ class Test_parse_definitions(unittest.TestCase):
             call('\textra\tNormal command.'),
             call('\tBEPA\tWildcard command.'),
         ])
+
+    @patch('builtins.print')
+    def test_help_all_commands(self, mock_print):
+        commander = Commander()
+
+        @commander.cli("")
+        def subcommand_a():
+            """Test command."""
+            commander.help_all_commands()
+
+        @commander.cli("apa")
+        def subcommand_apa():
+            """Apa command."""
+            pass
+
+        commander.call([""])
+
+        self.assertEqual(mock_print.mock_calls, [
+            call(''),
+            call('\tTest command.'),
+            call('apa'),
+            call('\tApa command.'),
+        ])

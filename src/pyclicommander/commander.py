@@ -241,9 +241,9 @@ class Commander():
     def help_all_commands(self, path=None):
         cmd_root_name = f"{self.cmd_name} " if self.cmd_name else ''
         for cmd in self.__get_cmds():
-            cmd_info = self.__get_cmd(cmd.split())
+            cmd_info, _args = self.__get_cmd(cmd.split())
             print(f"{cmd_root_name}{cmd_info['usage']}")
-            if text := cmd['short_description']:
+            if text := cmd_info['short_description']:
                 print(f"\t{text}")
 
     def call_with_help(self, args=sys.argv[1:]):
